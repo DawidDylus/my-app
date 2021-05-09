@@ -3,14 +3,16 @@ import React, {Component} from 'react';
 
 import {Table} from 'react-bootstrap';
 
-export class Department extends Component{
+import {Button,ButtonToolbar} from 'react-bootstrap';
+import {AddDepModal} from './AddDepModal';
 
+export class Department extends Component{
 
     constructor(props){
         super(props);
 
-        // Creating variable to store departments data
-        this.state={deps:[]}
+        // Creating variable to store departments data, variable that would show or hide modal.
+        this.state={deps:[], addModalShow:false}
     }
 
     // Function that refreshes departmens array
@@ -39,8 +41,9 @@ export class Department extends Component{
     }
 
     render(){
-
         const {deps}=this.state;
+
+        let addModalClose=()=>this.setState({addModalShow:false});
 
         return(
             <div>               
@@ -62,6 +65,14 @@ export class Department extends Component{
                         </tr>)}
                 </tbody>
             </Table>
+
+            <ButtonToolbar>
+
+                <Button variant='primary' onClick={()=>this.setState({addModalShow:true})}>Add Department</Button>
+
+                <AddDepModal show={this.state.addModalShow} onHide={addModalClose}></AddDepModal>
+                
+            </ButtonToolbar>
             </div>
         )
 
